@@ -1,0 +1,17 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model OrderViewModel
+@{
+    ViewBag.Title = "Заказать смартфон";
+    Layout = "_Layout";
+}
+<h2>Заполните форму для заказа</h2>
+<div class="row">
+    <div class="phone_add_form col-md-6">
+        <form asp-action="Create" method="post">
+            @{
+                await Html.RenderPartialAsync("PartialViews/OrderPartialView");
+            }
+            <button type="submit" class="btn btn-outline-info mt-3">Заказать</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+@model List<Order>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Заказы</h2>
+<h1 class="text-danger">@ViewBag.Error</h1>
+<div class="row">
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            @foreach (var order in Model)
+            {
+                <a class="list-group-item list-group-item-action" 
+                   id="list-settings-list" 
+                   data-toggle="list" 
+                   href="#@order.Username" 
+                   role="tab" 
+                   aria-controls="settings">@order.Username</a>
+            }
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+            @foreach (var order in Model)
+            {
+                <div class="tab-pane fade" id="@order.Username" role="tabpanel" aria-labelledby="list-home-list">
+                    <div class="card">
+                      <div class="card-header">
+                        @order.Phone.Brand.Name
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Заказчик: @order.Username</h5>
+                          <p class="card-title">Адрес доставки: @order.Address</p>
+                        <p class="card-title">Контактный телефон: @order.ContactPhone</p>
+                          <p class="card-title">Заказ: @order.Phone.Title</p>
+                          <p class="card-title">Дата заказа: @order.CreatedAt</p>
+                          @if (order.UpdatedAt is not null)
+                          {
+                              <p class="card-title">Изменение заказа: @order.UpdatedAt</p>
+                          }
+                          <div class="d-flex">
+                              <a class="btn btn-success" asp-action="Edit" asp-route-id="@order.Id">Редактировать</a>
+                              <form class="mx-2" asp-action="Delete" asp-route-id="@order.Id" method="post">
+                                  <button type="submit" class="btn btn-primary">Доставить заказ</button>
+                              </form>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts 
+{
+    <script type="text/javascript" src="~/Scripts/myScript.js"></script>
+}

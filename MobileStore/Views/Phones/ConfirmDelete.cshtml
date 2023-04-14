@@ -1,0 +1,21 @@
+@model int
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="card m-auto" style="width: 18rem;">
+    <div class="card-header">
+            <h5 class="card-title">Подтвердите удаление</h5>
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text">Действительно хотите удалить?</p>
+            <div class="d-flex justify-content-around">
+                <a class="btn btn-info" asp-action="About" asp-route-id="@Model">Отмена</a>
+                <form asp-action="Delete" method="post" asp-route-id="@Model">
+                    <button class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+</div>

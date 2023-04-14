@@ -1,0 +1,20 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MobileStore.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Отредактируйте заказ</h2>
+<div class="row">
+    <div class="phone_add_form col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="file"/>
+            @{
+                await Html.RenderPartialAsync("PartialViews/OrderPartialView");
+            }
+            <button type="submit" class="btn btn-outline-info mt-3">Редактировать</button>
+        </form>
+    </div>
+</div>

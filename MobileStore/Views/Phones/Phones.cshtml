@@ -1,0 +1,71 @@
+@using MobileStore.Enums
+@using MobileStore.Extensions
+@model PhonesPageViewModel
+@{
+    ViewBag.Title = "Мобильные телефоны";
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <h2>Мобильные телефоны</h2>
+</div>
+<a asp-action="Create" class="my-3 btn btn-outline-info">Добавить смартфон</a>
+<form asp-action="SearchPhones" method="get" class="w-25 my-4">
+    <div class="mb-3">
+        <lable for="filter" class="form-label">Фильтр</lable>
+        <input type="text" 
+               class="form-control" 
+               id="filter" 
+               asp-for="@Model.SearchOptions.Filter"
+               placeholder="Искать...">
+    </div>
+    @foreach (var criterion in Enum.GetValues<SearchPhoneCriterion>())
+    {
+        <div class="form-check">
+            <input type="radio" 
+                   class="form-check-input" 
+                   id="@((int)criterion)" 
+                   asp-for="SearchOptions.Criterion"
+                   value="@criterion"/>
+            <lable for="@((int)criterion)" class="form-check-label">@criterion.GetDisplayName()</lable>
+        </div>
+    }
+    <button type="submit" class="btn btn-outline-info">Фильтровать</button>
+</form>
+<div class="table_section">
+    @if (!Model.Phones.Any())
+    {
+        <p>Смартфоны еще не добавлены</p>
+    }
+    else
+    {
+        <table class="table" style="width: 100%;">
+            <tr>
+                <th>Id</th>
+                <th>Наименование</th>
+                <th>Компания</th>
+                <th>Стоимость</th>
+                <th>Скачать</th>
+            </tr>
+            @foreach (var phone in Model.Phones)
+            {
+                <tr>
+                    <td>@phone.Id</td>
+                    <td>
+                        <a asp-controller="Phones"
+                           asp-action="About"
+                           asp-route-id="@phone.Id">
+                            @phone.Title
+                        </a>
+                    </td>
+                    <td>@phone.BrandName</td>
+                    <td>@phone.Price</td>
+                    <td><a asp-controller="File"
+                           asp-action="GetFile"
+                           asp-route-id="@phone.Id">
+                        Скачнуть
+                    </a></td>
+                </tr>
+            }
+        </table>
+    }
+</div>

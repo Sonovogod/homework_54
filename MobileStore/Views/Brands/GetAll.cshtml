@@ -1,0 +1,19 @@
+@model List<BrandViewModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Бренды</h2>
+@if (!Model.Any())
+{
+    <p>Список пуст</p>
+}
+else
+{
+    @foreach (var brand in Model)
+    {
+        <p>@brand.Name</p>
+    }
+}

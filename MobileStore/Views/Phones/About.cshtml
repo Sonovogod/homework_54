@@ -1,0 +1,24 @@
+@model PhoneViewModel
+
+@{
+    ViewBag.Title = "Подробно";
+    Layout = "_Layout";
+}
+
+<div class="modal1" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@Model.Title</h5>
+        <a class="btn-close" type="button" asp-action="ConfirmDelete" asp-route-id="@Model.Id" aria-label="Close"></a>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Производитель: @Model.BrandName</p>
+        <p>Стоимость: @Model.Price</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" asp-action="Create" asp-controller="Orders" asp-route-phoneId="@Model.Id">Заказать</a>
+      </div>
+    </div>
+  </div>
+</div>
