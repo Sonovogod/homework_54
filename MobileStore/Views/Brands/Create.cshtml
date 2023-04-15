@@ -1,0 +1,69 @@
+@model CreateBrandViewModel
+
+@{
+    ViewBag.Title = "Создание бренда";
+    Layout = "_Layout";
+}
+@if (Model.Brands.Any())
+{
+    <h2>Существующие бренды</h2>
+    <table class="table" style="width: 100%;">
+        <tr>
+            <th>#ID</th>
+            <th>Наименование</th>
+            <th>Действие</th>
+        </tr>
+    @foreach (var brand in Model.Brands)
+    {
+        <tr>
+            <td>@brand.Id</td>
+            <td>@brand.Name</td>
+            <td><a asp-controller=""
+                   asp-action=""
+                   asp-route-id="@brand.Id" class="my-3 btn btn-danger d-inline">Удалить</a></td>
+        </tr>
+    }
+    </table>
+}
+<h2>Заполните форму для добавления нового бренда</h2>
+<div class="row">
+    <div class="brand_add_form col-md-6">
+        <form asp-action="Create" asp-controller="Brands" method="post">
+            <div class="form-group mb-3">
+                <label for="title" class="mb-2">Наименование</label>
+                <input asp-for="Name"
+                       type="text"
+                       class="form-control"
+                       id="title"
+                       placeholder="Наименование бренда">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email" class="mb-2">Email адресс</label>
+                <input asp-for="Email"
+                       type="email"
+                       class="form-control"
+                       id="email"
+                       placeholder="Стоимость устройства">
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="date" class="mb-2">Дата основания</label>
+                <input asp-for="DateEstablishment"
+                       type="date"
+                       class="form-control"
+                       id="date"
+                       placeholder="Основанно в">
+                <span class="text-danger" asp-validation-for="DateEstablishment"></span>
+            </div>
+            <button type="submit" class="btn btn-outline-info mt-3">Создать</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

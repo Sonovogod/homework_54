@@ -4,5 +4,6 @@ namespace MobileStore.Services.Abstractions;
 
 public interface IBrandService
 {
-    List<BrandViewModel> GetAll();
+    List<ShortBrandViewModel> GetAll();
+    void Add(CreateBrandViewModel createBrandViewModel);
 }

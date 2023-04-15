@@ -7,7 +7,7 @@ public class PhoneViewModel
 {
     public int Id { get; set; }
     [Required(ErrorMessage = "Поле обязательно для заполнения")]
-    [StringLength(50, MinimumLength = 3, ErrorMessage = "Минимальное количество щзнаков: 3, Максимальное - 50")]
+    [StringLength(50, MinimumLength = 3, ErrorMessage = "Минимальное количество знаков: 3, Максимальное - 50")]
     [DataType(DataType.Text, ErrorMessage = "тут должен быть только текст")]
     [Remote(action:"CheckUniqueTitle", controller:"PhoneValidation", ErrorMessage = "Название занято")]
     public string Title { get; set; }
@@ -19,6 +19,7 @@ public class PhoneViewModel
     public int Price { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
+    [Required(ErrorMessage = "Поле обязательно для заполнения")]
     public int BrandId { get; set; }
     public string BrandName { get; set; }
 }

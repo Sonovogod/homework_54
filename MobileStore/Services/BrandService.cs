@@ -1,3 +1,4 @@
+using MobileStore.Extensions;
 using MobileStore.Models;
 using MobileStore.Services.Abstractions;
 using MobileStore.ViewModels;
@@ -13,12 +14,18 @@ public class BrandService : IBrandService
         _db = db;
     }
 
-    public List<BrandViewModel> GetAll()
+    public List<ShortBrandViewModel> GetAll()
     {
-        return _db.Brands.Select(b => new BrandViewModel
+        return _db.Brands.Select(b => new ShortBrandViewModel
         {
             Id = b.Id,
             Name = b.Name
         }).ToList();
+    }
+
+    public void Add(CreateBrandViewModel createBrandViewModel)
+    {
+       _db.Add(BrandExtension.MapToBrandModel(createBrandViewModel));
+       _db.SaveChanges();
     }
 }
