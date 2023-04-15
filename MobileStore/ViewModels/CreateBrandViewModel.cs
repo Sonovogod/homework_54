@@ -8,7 +8,7 @@ public class CreateBrandViewModel
     public List<BrandViewModel>? Brands { get; set; }
     public int Id { get; set; }
     [Required(ErrorMessage = "Поле не может быть пустым")]
-    [Remote("CheckUniqueName", "BrandValidationController", ErrorMessage = "Такое наименоване бренда уже есть")]
+    [Remote("CheckUniqueName", "BrandValidation", ErrorMessage = "Такое наименоване бренда уже есть")]
     [StringLength(50, MinimumLength = 1, ErrorMessage = "Минимальное количество знаков: 1, Максимальное - 50")]
     public string Name { get; set; }
     [Required(ErrorMessage = "Поле не может быть пустым")]
