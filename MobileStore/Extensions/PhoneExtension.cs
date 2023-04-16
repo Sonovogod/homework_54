@@ -18,4 +18,52 @@ public static class PhoneExtension
             UpdatedAt = p.UpdatedAt
         }).ToList();
     }
+
+    public static PhoneViewModel MapToPhoneViewModel(Phone phone)
+    {
+        PhoneViewModel viewModel = new PhoneViewModel
+        {
+            Id = phone.Id,
+            Title = phone.Title,
+            Price = phone.Price,
+            CreatedAt = phone.CreatedAt,
+            UpdatedAt = phone.UpdatedAt,
+            BrandId = phone.Brand.Id,
+            BrandName = phone.Brand.Name
+        };
+        return viewModel;
+    }
+    
+    public static CreatePhonePageViewModel MapToCreatePhonePageViewModel(Phone phone, List<ShortBrandViewModel> brands)
+    {
+        CreatePhonePageViewModel createPhonePageViewModel = new CreatePhonePageViewModel
+        {
+            Phone = new PhoneViewModel()
+            {
+                Id = phone.Id,
+                Title = phone.Title,
+                Price = phone.Price,
+                CreatedAt = phone.CreatedAt,
+                UpdatedAt = phone.UpdatedAt,
+                BrandId = phone.Brand.Id,
+                BrandName = phone.Brand.Name
+            },
+            Brands = brands
+        };
+        return createPhonePageViewModel;
+    }
+    
+    public static Phone MapToPhoneModel(CreatePhonePageViewModel createPhonePageViewModel)
+    {
+        Phone phone = new Phone()
+        {
+            Id = createPhonePageViewModel.Phone.Id,
+            Title = createPhonePageViewModel.Phone.Title,
+            Price = createPhonePageViewModel.Phone.Price,
+            CreatedAt = createPhonePageViewModel.Phone.CreatedAt,
+            UpdatedAt = createPhonePageViewModel.Phone.UpdatedAt,
+            BrandId = createPhonePageViewModel.Phone.BrandId
+        };
+        return phone;
+    }
 }

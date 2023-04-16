@@ -18,13 +18,13 @@ public class OrderService : IOrderService
     public List<Order> GetAll()
         => _mobileContext.Orders
             .Include(x => x.Phone)
+            .Include(x => x.Phone.Brand)
             .ToList();
 
-    public void Create(OrderViewModel? model)
+    public void Create(Order model)
     {
-        if (model is null)
-            return;
-        _mobileContext.Orders.Add(model.MapToOrder(new Order()));
+        model.CreatedAt = DateTime.Now;
+        _mobileContext.Orders.Add(model);
         _mobileContext.SaveChanges();
     }
 

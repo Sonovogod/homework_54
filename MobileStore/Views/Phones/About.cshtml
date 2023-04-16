@@ -12,13 +12,59 @@
         <h5 class="modal-title">@Model.Title</h5>
         <a class="btn-close" type="button" asp-action="ConfirmDelete" asp-route-id="@Model.Id" aria-label="Close"></a>
       </div>
-      <div class="modal-body">
-        <p class="lead">Производитель: @Model.BrandName</p>
-        <p>Стоимость: @Model.Price</p>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-primary" asp-action="Create" asp-controller="Orders" asp-route-phoneId="@Model.Id">Заказать</a>
+      <div class="modal-body row">
+        <div class="col">
+          <p class="lead">Производитель: @Model.BrandName</p>
+          <p>Стоимость: @Model.Price</p>
+          @if (Model.FeedBacks is not null)
+          {
+            double rate = 0;
+            int counter = 0;
+            foreach (var feedBack in Model.FeedBacks)
+            {
+              if (feedBack.PhoneId == Model.Id)
+              {
+                rate += feedBack.Grade;
+                counter++;
+              }
+            }
+            <p>Рейтинг: @(rate/counter)</p>
+          }
+          <p class="card-title">Дата добавлеиня: @Model.CreatedAt</p>
+          @if (Model.UpdatedAt is not null)
+          {
+            <p class="card-title">Изменение заказа: @Model.UpdatedAt</p>
+          }
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-outline-warning" asp-action="CreateReview" asp-controller="FeedBacks" asp-route-Id="@Model.Id">Добавить отзыв</a>
+          <a class="btn btn-outline-warning" asp-action="Edit" asp-controller="Phones" asp-route-Id="@Model.Id">Изменить</a>
+          <a class="btn btn-primary" asp-action="Create" asp-controller="Orders" asp-route-phoneId="@Model.Id">Заказать</a>
+        </div>
       </div>
     </div>
   </div>
+</div>
+<div>
+  @if(Model.FeedBacks is not null)
+  {
+    <h2>Отзывы</h2>
+    @foreach (var feedBack in Model.FeedBacks)
+    {
+      if (feedBack.PhoneId == Model.Id)
+      {
+        <div class="card">
+          <div class="card-header">
+            Оценка: @feedBack.Grade
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>@feedBack.UserName</p>
+              <footer class="blockquote-footer">@feedBack.Comments</footer>
+            </blockquote>
+          </div>
+        </div>
+      }
+    }
+  }
 </div>

@@ -6,7 +6,6 @@
 }
 
 <h2>Заказы</h2>
-<h1 class="text-danger">@ViewBag.Error</h1>
 <div class="row">
     <div class="col-4">
         <div class="list-group" id="list-tab" role="tablist">
@@ -33,7 +32,7 @@
                       <div class="card-body">
                           <h5 class="card-title">Заказчик: @order.Username</h5>
                           <p class="card-title">Адрес доставки: @order.Address</p>
-                        <p class="card-title">Контактный телефон: @order.ContactPhone</p>
+                          <p class="card-title">Контактный телефон: @order.ContactPhone</p>
                           <p class="card-title">Заказ: @order.Phone.Title</p>
                           <p class="card-title">Дата заказа: @order.CreatedAt</p>
                           @if (order.UpdatedAt is not null)

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MobileStore.Extensions;
 using MobileStore.Models;
 using MobileStore.Services.Abstractions;
 using MobileStore.ViewModels;
@@ -19,9 +20,8 @@ public class OrdersController : Controller
         _orderService = orderService;
     }
     
-    public IActionResult Orders(string error = default)
+    public IActionResult Orders()
     {
-        ViewBag.Error = error;
         List<Order> orders = _orderService.GetAll();
         
         return View(orders);
@@ -43,13 +43,22 @@ public class OrdersController : Controller
         return View(order);
     }
 
-    public IActionResult Create(OrderViewModel? order)
+    [HttpPost]
+    public IActionResult Create(OrderViewModel? orderViewModel)
     {
-        if (order is null)
-            return NotFound();
-        _orderService.Create(order);
-        
-        return RedirectToAction("Orders");
+        if (ModelState.IsValid)
+        {
+            Order order = OrderExtension.MapToOrder(orderViewModel, new Order());
+            _orderService.Create(order);
+            return RedirectToAction("Orders");
+        }
+        Phone? phone = _phoneService.GetById(orderViewModel.ShortPhone.Id);
+        orderViewModel.ShortPhone = new ShortPhoneViewModel
+        {
+            Id = phone.Id,
+            Title = phone.Title
+        };
+        return View(orderViewModel);
     }
 
     [HttpPost]

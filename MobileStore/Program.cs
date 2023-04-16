@@ -13,6 +13,7 @@ builder.Services.AddScoped<IPhoneService, PhoneService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IFeedBackService, FeedBackService>();
 
 // MiddleWare
 var app = builder.Build();

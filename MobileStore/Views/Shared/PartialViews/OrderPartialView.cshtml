@@ -6,6 +6,7 @@
            type="text" 
            class="form-control" 
            id="brand" placeholder="Имя">
+    <span class="text-danger" asp-validation-for="Username"></span>
 </div>
 <div class="form-group mb-3">
     <label for="title" class="mb-2">Адрес доставки</label>
@@ -14,6 +15,8 @@
            class="form-control"
            id="title"
            placeholder="Адрес">
+    <span class="text-danger" asp-validation-for="Address"></span>
+    
 </div>
 <div class="form-group mb-3">
     <label for="price" class="mb-2">Номер телефона</label>
@@ -22,9 +25,10 @@
            class="form-control"
            id="price"
            placeholder="+7">
+        <span class="text-danger" asp-validation-for="ContactPhone"></span>
 </div>
 <div class="form-group mb-3">
     <label for="phone-title" class="mb-2">Смартфон :</label>
-    <input disabled value="@Model.ShortPhone.Title" class="form-control" id="phone-title">
+    <input disabled value="@Model.ShortPhone.Title" asp-for="ShortPhone.Title" class="form-control" id="phone-title">
     <input hidden asp-for="@Model.ShortPhone.Id" value="@Model.ShortPhone.Id" class="form-control">
 </div>

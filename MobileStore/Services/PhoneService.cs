@@ -30,7 +30,8 @@ public class PhoneService : IPhoneService
             Id = phone.Id,
             BrandId = phone.BrandId,
             Title = phone.Title,
-            Price = phone.Price
+            Price = phone.Price,
+            CreatedAt = DateTime.Now
         };
         _db.Phones.Add(newPhone);
         _db.SaveChanges();
@@ -52,6 +53,13 @@ public class PhoneService : IPhoneService
         }
 
         phone.IsDeleted = true;
+        _db.Phones.Update(phone);
+        _db.SaveChanges();
+    }
+
+    public void Edit(Phone phone)
+    {
+        phone.UpdatedAt = DateTime.Now;
         _db.Phones.Update(phone);
         _db.SaveChanges();
     }
