@@ -18,9 +18,14 @@
         <tr>
             <td>@brand.Id</td>
             <td>@brand.Name</td>
-            <td><a asp-controller=""
-                   asp-action=""
-                   asp-route-id="@brand.Id" class="my-3 btn btn-danger d-inline">Удалить</a></td>
+            <td>
+                <a asp-controller="Brands"
+                                   asp-action="Edit"
+                                   asp-route-id="@brand.Id" class="my-3 btn btn-outline-primary d-inline">Изменить</a>
+                <a asp-controller="Brands"
+                   asp-action="Delete"
+                   asp-route-id="@brand.Id" class="my-3 btn btn-danger d-inline">Удалить</a>
+            </td>
         </tr>
     }
     </table>
@@ -56,6 +61,7 @@
                        placeholder="Основанно в">
                 <span class="text-danger" asp-validation-for="DateEstablishment"></span>
             </div>
+            <input type="hidden" value="@Model.Id">
             <button type="submit" class="btn btn-outline-info mt-3">Создать</button>
         </form>
     </div>

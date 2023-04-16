@@ -16,4 +16,16 @@ public static class BrandExtension
         };
         return brand;
     }
+
+    public static CreateBrandViewModel MapToCreateBrandViewModel(Brand brand)
+    {
+        CreateBrandViewModel brandViewModel = new CreateBrandViewModel()
+        {
+            Id = brand.Id,
+            Name = brand.Name,
+            Email = brand.Email,
+            DateEstablishment = brand.DateEstablishment
+        };
+        return brandViewModel;
+    }
 }

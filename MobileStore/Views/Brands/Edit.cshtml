@@ -1,0 +1,52 @@
+@model CreateBrandViewModel
+
+@{
+    ViewBag.Title = "Изменить бренд";
+    Layout = "_Layout";
+}
+
+<h2>Отредактируйте бренд</h2>
+<div class="row">
+    <div class="brand_add_form col-md-6">
+        <form asp-action="Edit" asp-controller="Brands" method="post">
+            <div class="form-group mb-3">
+                <label for="brand" class="mb-2">Наименование</label>
+                <input asp-for="Name" 
+                       type="text" 
+                       class="form-control" 
+                       id="brand" placeholder="Наименование"
+                       value="@Model.Name">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email" class="mb-2">Эл. адрес</label>
+                <input asp-for="Email"
+                       type="text"
+                       class="form-control"
+                       id="email"
+                       placeholder="Email"
+                       value="@Model.Email">
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="date" class="mb-2">Дата основания</label>
+                <input asp-for="DateEstablishment"
+                       type="date"
+                       class="form-control"
+                       id="date"
+                       placeholder="Основанно в"
+                       value="@Model.DateEstablishment">
+                <span class="text-danger" asp-validation-for="DateEstablishment"></span>
+            </div>
+            <input hidden asp-for="@Model.Id" value="@Model.Id" class="form-control">
+            <button type="submit" class="btn btn-outline-info mt-3">Редактировать</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

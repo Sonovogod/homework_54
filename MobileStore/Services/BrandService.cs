@@ -23,9 +23,26 @@ public class BrandService : IBrandService
         }).ToList();
     }
 
-    public void Add(CreateBrandViewModel createBrandViewModel)
+    public void Add(Brand brand)
     {
-       _db.Add(BrandExtension.MapToBrandModel(createBrandViewModel));
+       _db.Add(brand);
        _db.SaveChanges();
     }
+
+    public Brand? GetById(int id) => _db.Brands.FirstOrDefault(x => x.Id == id);
+
+    public void Delete(int id)
+    {
+        var brand = GetById(id);
+        if (brand == null) return;
+        _db.Brands.Remove(brand);
+        _db.SaveChanges();
+    }
+
+    public void Edit(Brand brand)
+    {
+        _db.Brands.Update(brand);
+        _db.SaveChanges();
+    }
+  
 }

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using MobileStore.Extensions;
+using MobileStore.Models;
 using MobileStore.Services.Abstractions;
 using MobileStore.ViewModels;
 
@@ -14,12 +16,6 @@ public class BrandsController : Controller
     }
 
     [HttpGet]
-    public IActionResult GetAll()
-    {
-        return View(_brandService.GetAll());
-    }
-    
-    [HttpGet]
     public IActionResult Create()
     {
         CreateBrandViewModel createBrandViewModel = GetBrands();
@@ -32,11 +28,47 @@ public class BrandsController : Controller
     {
         if (ModelState.IsValid)
         {
-            _brandService.Add(createBrandViewModel);
+            Brand brand = BrandExtension.MapToBrandModel(createBrandViewModel);
+            _brandService.Add(brand);
             return RedirectToAction("Create");
         }
         createBrandViewModel = GetBrands();
         return View(createBrandViewModel);
+    }
+    
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        Brand? brand = _brandService.GetById(id);
+        if (brand == null)
+            return NotFound();
+        
+        _brandService.Delete(brand.Id);
+        return RedirectToAction("Create");
+    }
+    
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Brand? brand = _brandService.GetById(id);
+        if (brand == null)
+            return NotFound();
+
+        CreateBrandViewModel createBrandViewModel = BrandExtension.MapToCreateBrandViewModel(brand);
+        return View(createBrandViewModel);
+    }
+    
+    [HttpPost]
+    public IActionResult Edit(CreateBrandViewModel createBrandViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            Brand brand = BrandExtension.MapToBrandModel(createBrandViewModel);
+            _brandService.Edit(brand);
+            return RedirectToAction("Create");
+        }
+
+        return View("Edit", createBrandViewModel);
     }
     
     private CreateBrandViewModel GetBrands()
