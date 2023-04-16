@@ -21,5 +21,5 @@ public class PhoneViewModel
     public DateTime? UpdatedAt { get; set; }
     [Required(ErrorMessage = "Поле обязательно для заполнения")]
     public int BrandId { get; set; }
-    public string BrandName { get; set; }
+    public string? BrandName { get; set; }
 }
