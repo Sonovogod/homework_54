@@ -19,4 +19,10 @@
       <Folder Include="PhoneFiles" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Orders\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Orders.cshtml" />
+    </ItemGroup>
+
 </Project>

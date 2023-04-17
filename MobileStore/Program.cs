@@ -11,7 +11,6 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<MobileContext>(options => options.UseSqlite(connection));
 builder.Services.AddScoped<IPhoneService, PhoneService>();
 builder.Services.AddScoped<IFileService, FileService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IFeedBackService, FeedBackService>();
 

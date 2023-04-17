@@ -66,40 +66,6 @@ namespace MobileStore.Migrations
                     b.ToTable("FeedBacks");
                 });
 
-            modelBuilder.Entity("MobileStore.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ContactPhone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PhoneId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PhoneId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("MobileStore.Models.Phone", b =>
                 {
                     b.Property<int>("Id")
@@ -133,17 +99,6 @@ namespace MobileStore.Migrations
                 });
 
             modelBuilder.Entity("MobileStore.Models.FeedBack", b =>
-                {
-                    b.HasOne("MobileStore.Models.Phone", "Phone")
-                        .WithMany()
-                        .HasForeignKey("PhoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Phone");
-                });
-
-            modelBuilder.Entity("MobileStore.Models.Order", b =>
                 {
                     b.HasOne("MobileStore.Models.Phone", "Phone")
                         .WithMany()

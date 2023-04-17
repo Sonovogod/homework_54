@@ -6,7 +6,6 @@ namespace MobileStore.Models;
 public class MobileContext : DbContext
 {
     public DbSet<Phone> Phones { get; set; }
-    public DbSet<Order> Orders { get; set; }
     public DbSet<Brand> Brands { get; set; }
     public DbSet<FeedBack> FeedBacks { get; set; }
     
@@ -20,7 +19,6 @@ public class MobileContext : DbContext
 
     public override int SaveChanges()
     {
-        SetOrderCreationDateTime();
         DeleteFile();
         return base.SaveChanges();
     }
@@ -28,37 +26,13 @@ public class MobileContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Phone>().HasQueryFilter(p => !p.IsDeleted);
-        modelBuilder.Entity<Order>().HasQueryFilter(p => !p.Phone.IsDeleted);
         base.OnModelCreating(modelBuilder);
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken token = default)
     {
-        SetOrderCreationDateTime();
         DeleteFile();
         return await base.SaveChangesAsync(token);
-    }
-
-    private void SetOrderCreationDateTime()
-    {
-        foreach (var entry in ChangeTracker.Entries<Order>())
-        {
-            if (entry.State is not (EntityState.Added or EntityState.Modified)) continue;
-            Order order = entry.Entity;
-            switch (entry.State)
-            {
-                case EntityState.Added:
-                {
-                    order.CreatedAt = DateTime.Now;
-                    break;
-                }
-                case EntityState.Modified:
-                {
-                    order.UpdatedAt = DateTime.Now;
-                    break;
-                }
-            }
-        }
     }
 
     private void DeleteFile()
