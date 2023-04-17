@@ -22,24 +22,28 @@ public class FeedBacksController : Controller
     {
         var phone = _phoneService.GetById(id);
         if (id == 0 || phone == null) return NotFound();
-        
-        FeedBackViewModel feedBackViewModel = new FeedBackViewModel()
+        CreateFeedBackViewModel createFeedBackViewModel = new CreateFeedBackViewModel()
         {
-            PhoneId = phone.Id
+            ShortPhoneViewModel = new ShortPhoneViewModel()
+            {
+                Id = phone.Id,
+                Title = phone.Title
+            }
         };
-        return View(feedBackViewModel);
+
+        return View(createFeedBackViewModel);
     }
     
     [HttpPost]
-    public IActionResult CreateReview(FeedBackViewModel feedBackViewModel)
+    public IActionResult CreateReview(CreateFeedBackViewModel createFeedBackViewModel)
     {
         if (ModelState.IsValid)
         {
-            FeedBack feedBack = FeedBackExtension.MapToFeedBackModel(feedBackViewModel);
+            FeedBack feedBack = FeedBackExtension.MapToFeedBackModel(createFeedBackViewModel.FeedBackViewModel);
             _feedBackService.Add(feedBack);
             return RedirectToAction("About", "Phones", new {id = feedBack.PhoneId});
         }
        
-        return RedirectToAction("CreateReview", new {id = feedBackViewModel.PhoneId});
+        return RedirectToAction("CreateReview", new {id = createFeedBackViewModel.FeedBackViewModel.PhoneId});
     }
 }

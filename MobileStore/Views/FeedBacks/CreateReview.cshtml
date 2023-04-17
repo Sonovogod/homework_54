@@ -1,4 +1,4 @@
-@model FeedBackViewModel
+@model CreateFeedBackViewModel
 
 @{
     ViewBag.Title = "Добавить отзыв";
@@ -10,7 +10,7 @@
     <div class="phone_add_form col-md-6">
         <form asp-action="CreateReview" method="post">
             <div class="form-floating">
-                <select asp-for="Grade"
+                <select asp-for="FeedBackViewModel.Grade"
                         class="form-select" id="floatingSelect"
                         aria-label="Floating label select example">
                     @for (var i = 1; i < 6; i++)
@@ -19,27 +19,27 @@
                     }
                 </select>
                 <label for="floatingSelect">Оцените товар</label>
-                <span class="text-danger" asp-validation-for="Grade"></span>
+                <span class="text-danger" asp-validation-for="FeedBackViewModel.Grade"></span>
             </div>
             <div class="form-group mb-3">
                 <label for="name" class="mb-2">Как Вас зовут?</label>
-                <input asp-for="UserName"
+                <input asp-for="FeedBackViewModel.UserName"
                        type="text"
                        class="form-control"
                        id="name"
                        placeholder="Укажите имя">
-                <span class="text-danger" asp-validation-for="UserName"></span>
+                <span class="text-danger" asp-validation-for="FeedBackViewModel.UserName"></span>
             </div>
             <div class="form-group mb-3">
                 <label for="price" class="mb-2">Добавьте комментарий</label>
-                <textarea asp-for="Comments"
+                <textarea asp-for="FeedBackViewModel.Comments"
                        type="text"
                        class="form-control"
                        id="price"
                        placeholder="Расскажите о своих впечатлениях"></textarea>
-                <span class="text-danger" asp-validation-for="Comments"></span>
+                <span class="text-danger" asp-validation-for="FeedBackViewModel.Comments"></span>
             </div>
-            <input asp-for="PhoneId" value="@Model.PhoneId" type="hidden">
+            <input asp-for="FeedBackViewModel.PhoneId" value="@Model.ShortPhoneViewModel.Id" type="hidden">
             <button type="submit" class="btn btn-outline-info mt-3">Добавить</button>
         </form>
     </div>
